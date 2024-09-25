@@ -1,23 +1,12 @@
 {
     "Grupos": {
-        "123": {
-            "codigo": "123",
-            "nombre": "C4",
-            "sigla": "CAMPUS"
-        },
-        "321": {
-            "codigo": "321",
-            "nombre": "Cs",
-            "sigla": "DS"
+        "122": {
+            "codigo": "122",
+            "nombre": "Dqqwd",
+            "sigla": "D"
         }
     },
-    "Modulos": {
-        "321": {
-            "Modulo": "321",
-            "nombre": "MATEMATICAS",
-            "tiempo": "6"
-        }
-    },
+    "Modulos": {},
     "Estudiantes": {},
     "Docentes": {}
 }

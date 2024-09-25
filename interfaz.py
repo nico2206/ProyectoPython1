@@ -1,5 +1,6 @@
 import json 
 from pathlib import Path
+
 def cargar (arch):
     arch = Path(arch)
     base = {"Grupos":{}, "Modulos":{}, "Estudiantes":{}, "Docentes":{}}
@@ -64,7 +65,7 @@ def modulos():
          print("El codigo es incorrecto")
     nombre1 = input("Ingrese el nombre del modulo\n")
     tiempo1 = input("Ingrese duracion del modulo en semanas\n")
-    modulos = {"Modulo":modulo1, "nombre": nombre1, "tiempo": tiempo1}
+    modulos = {"Modulos":modulo1, "nombre": nombre1, "tiempo": tiempo1}
     DATOS ["Modulos"][modulo1]= modulos
     with open(archivo, "w") as fd:
         json.dump(DATOS, fd, indent=4)
@@ -72,12 +73,12 @@ def modulos():
 def estudiantes():
     archivo = "base.json"
     DATOS = cargar(archivo)
-    codigo1 = input("Ingrese el codigo del estudiante \n")
+    codigoEstuadiantes = input("Ingrese el codigo del estudiante \n")
     nombre2 = input("Ingrese el nombre del estudiante\n")
     sexo1 = input("Ingresa el sexo del estudiante\n")
     edad1 = input ("Ingrese la edad del estudiante\n")
-    estudiantes = {"codigo":codigo1, "nombre": nombre2, "sexo": sexo1, "edad":edad1}
-    DATOS ["Estudiantes"][codigo1]= estudiantes
+    estudiantes = {"codigo":codigoEstuadiantes, "nombre": nombre2, "sexo": sexo1, "edad":edad1}
+    DATOS ["Estudiantes"][codigoEstuadiantes]= estudiantes
     with open(archivo, "w") as fd:
         json.dump(DATOS, fd, indent=4)
 
@@ -90,8 +91,35 @@ def docentes ():
     DATOS ["Docentes"]= docentes
     with open(archivo, "w") as fd:
         json.dump(DATOS, fd, indent=4)
-  
 
-
-
-
+def  Asignación_de_Estudiantes():
+    archivo = "base.json"
+    Datos= cargar(archivo)
+    estudiante_registro = input("Ingrese el codigo del estudiante")
+    if estudiante_registro not in Datos["Estudiantes"]:
+        print ("vuelva a menu y registre el estudiante")
+        return
+    print("Estos son los grupos disponibles en el momento")
+    for codigo1, nombre1 in Datos["Grupos"].items():
+        print (f"{codigo1}:{nombre1}" )
+    grupo_registro = input("ingrese el codigo del grupo al que quieres registrar al estudiante")
+    if grupo_registro not in Datos["Grupos"]:
+        print("vuelva a menu y cree el grupo")
+        return
+    print("Estos son los modulos disponibles en el momento")
+    for modulo1, nombre1 in Datos["Modulos"].items():
+        print (f"{modulo1}:{nombre1}" )
+    modulos_asignar= []
+    while len(modulos_asignar) <= 3:
+        modulo = input("ingrese el modulo")
+        if modulo in Datos["Modulos"]:
+            modulos_asignar.append(modulo)
+            if len(modulos_asignar) == 3:
+                break
+        else:
+            print("No existe el modulo")
+    Datos["Estudiantes"][estudiante_registro]["Grupos"] = grupo_registro
+    Datos["Estudiantes"][estudiante_registro]["Modulos"]= modulos_asignar
+    with open(archivo, "w") as fd:
+        json.dump(Datos, fd, indent=4)
+    
