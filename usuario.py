@@ -1,5 +1,6 @@
 import json 
 from pathlib import Path
+import hashlib
 def cargar_usuario (arch):
     arch = Path(arch)
     usuario1 = {"Usuariocontra":{}}
@@ -19,20 +20,26 @@ def cargar_usuario (arch):
     with open (arch, "w")as fd:
       json.dump(usuario1, fd, indent=4)
     return usuario1 
+def encriptar_contraseña(contraseña):
+    return hashlib.sha256(contraseña.encode()).hexdigest()
 def cambio_usuario():
     archivo = "usuario1.json"
     datos = cargar_usuario(archivo)
     sw = True
     while sw:
       Usuario = input("        INGRESE UN USUSARIO \n")
-      Contraseña_base = input("INGRESE CONTRASEÑA ")
+      Contraseña_base = input("        INGRESE CONTRASEÑA \n ")
+      contraseña_encriptada = encriptar_contraseña(Contraseña_base)
       if Contraseña_base=="SISGESA":
           sw= False
-          inicio_sec = {"usuario_dig": Usuario, "contraseña_dig":Contraseña_base}
+          inicio_sec = {"usuario_dig": Usuario, "contraseña_dig":contraseña_encriptada}
           datos["Usuariocontra"] =inicio_sec
       else:
           print("Digite nuevamente su usuario y contraseña")  
     with open(archivo, "w") as fd:
         json.dump(datos, fd, indent=4)
+
+def clear():
+    print("\n"*100)
 
     

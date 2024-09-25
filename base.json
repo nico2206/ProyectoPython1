@@ -4,9 +4,48 @@
             "codigo": "122",
             "nombre": "Dqqwd",
             "sigla": "D"
+        },
+        "123": {
+            "codigo": "123",
+            "nombre": "123",
+            "sigla": "123"
         }
     },
-    "Modulos": {},
-    "Estudiantes": {},
+    "Modulos": {
+        "123": {
+            "Modulos": "123",
+            "nombre": "WSDD",
+            "tiempo": "WD"
+        },
+        "432": {
+            "Modulos": "432",
+            "nombre": "Python",
+            "tiempo": "6",
+            "Hora_inicio": null,
+            "Hora_salida": null
+        },
+        "4322": {
+            "Modulos": "4322",
+            "nombre": "Dwd",
+            "tiempo": "ffw",
+            "Hora_inicio": "None",
+            "Hora_salida": "None"
+        },
+        "133": {
+            "Modulos": "133",
+            "nombre": "Sd",
+            "tiempo": "SDD",
+            "Hora_inicio": null,
+            "Hora_salida": null
+        }
+    },
+    "Estudiantes": {
+        "123": {
+            "codigo": "123",
+            "nombre": "SEBASTIAN",
+            "sexo": "MASCULINO",
+            "edad": "23"
+        }
+    },
     "Docentes": {}
 }

@@ -1,5 +1,6 @@
 import json 
 from pathlib import Path
+from datetime import datetime
 
 def cargar (arch):
     arch = Path(arch)
@@ -63,9 +64,13 @@ def modulos():
         print("Escribe de nuevo el codigo")
      else:
          print("El codigo es incorrecto")
-    nombre1 = input("Ingrese el nombre del modulo\n")
+    nombre1 = input("Ingrese el nombre del modulo\n").capitalize()
     tiempo1 = input("Ingrese duracion del modulo en semanas\n")
-    modulos = {"Modulos":modulo1, "nombre": nombre1, "tiempo": tiempo1}
+    print ("ingresa la hora de inicio del modulo")
+    hora_inicio1 = ingresar_hora()
+    print ("Ingresa la hora de salida ")
+    hora_salida2 = ingresar_hora()
+    modulos = {"Modulos":modulo1, "nombre": nombre1, "tiempo": tiempo1,"Hora_inicio": hora_inicio1, "Hora_salida":hora_salida2}
     DATOS ["Modulos"][modulo1]= modulos
     with open(archivo, "w") as fd:
         json.dump(DATOS, fd, indent=4)
@@ -73,12 +78,25 @@ def modulos():
 def estudiantes():
     archivo = "base.json"
     DATOS = cargar(archivo)
-    codigoEstuadiantes = input("Ingrese el codigo del estudiante \n")
-    nombre2 = input("Ingrese el nombre del estudiante\n")
+    sw = True
+    while sw:
+     codigoEstudiantes = (input("Ingrese el codigo del estudiante con maximo 5 caracteres\n"))
+     if codigoEstudiantes in DATOS["Modulos"]:
+         print("El codigo ya esta registrado")
+         print("Registre un nuevo codigo")
+     elif len(codigoEstudiantes) > 1 and len(codigoEstudiantes)<= 5:
+        print("El codigo es valido")
+        sw = False
+     elif len(codigoEstudiantes) > 6:
+        print ("El codigo no es valido")
+        print("Escribe de nuevo el codigo")
+     else:
+         print("El codigo es incorrecto")
+    nombre2 = input("Ingrese el nombre del estudiante\n").capitalize()
     sexo1 = input("Ingresa el sexo del estudiante\n")
     edad1 = input ("Ingrese la edad del estudiante\n")
-    estudiantes = {"codigo":codigoEstuadiantes, "nombre": nombre2, "sexo": sexo1, "edad":edad1}
-    DATOS ["Estudiantes"][codigoEstuadiantes]= estudiantes
+    estudiantes = {"codigo":codigoEstudiantes, "nombre": nombre2, "sexo": sexo1, "edad":edad1}
+    DATOS ["Estudiantes"][codigoEstudiantes]= estudiantes
     with open(archivo, "w") as fd:
         json.dump(DATOS, fd, indent=4)
 
@@ -86,7 +104,7 @@ def docentes ():
     archivo = "base.json"
     DATOS = cargar(archivo)
     cedula1 = input("Ingrese tu numero de cedula \n")
-    nombre1 = input("Ingresa tu nombre\n")
+    nombre1 = input("Ingresa tu nombre\n").capitalize()
     docentes = {"Cedula":cedula1, "nombre": nombre1}
     DATOS ["Docentes"]= docentes
     with open(archivo, "w") as fd:
@@ -123,3 +141,14 @@ def  Asignación_de_Estudiantes():
     with open(archivo, "w") as fd:
         json.dump(Datos, fd, indent=4)
     
+def ingresar_hora():
+    while True:
+        hora_usuario = input("Ingrese la hora en formato HH:MM (24 horas): ")
+        try:
+            hora = datetime.strptime(hora_usuario, "%H:%M")
+            print(f"La hora ingresada es: {hora.time()}")
+            break
+        except ValueError:
+            print("Formato de hora incorrecto. Por favor, intente nuevamente.")
+
+
